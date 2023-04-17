@@ -166,11 +166,11 @@ int main(){
     }
 
 
-    //Additional future improvement: turn elements of below for loop into a function
+    //Additional future improvement: turn elements of below for loop into a function and rewrite nested if statements better functionality
     for (int i=0; i<numberOfPlayers; i++){  //Prompting players to hit or stand if score < 21
         bool playerBust=false;
         if (i==0){
-            if (playerOneScore!=21){
+            if (playerOneScore<21){
                 cout<<"\tPlayer 1, enter 'H' to Hit --or-- 'S' to Stand: ";
                 cin>>choice;
             }
@@ -199,7 +199,7 @@ int main(){
             }
         }
         if (i==1){
-            if (playerTwoScore!=21){
+            if (playerTwoScore<21){
                 cout<<"\n\t\tPlayer 2, enter 'H' to Hit --or-- 'S' to Stand: ";
                 cin>>choice;
             }
@@ -214,7 +214,7 @@ int main(){
                     break;
                 }
                 if (playerBust==false){
-                    cout<<"\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
+                    cout<<"\t\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
                 }
             } 
             else if (choice=='s' || choice=='S'){
@@ -229,37 +229,37 @@ int main(){
             }
         }
         if (i==2){
-            if (playerThreeScore!=21){
+            if (playerThreeScore<21){
                 cout<<"\n\t\t\tPlayer 3, enter 'H' to Hit --or-- 'S' to Stand: ";
                 cin>>choice;
             }
             while (choice){
-            if (choice=='h' || choice=='H'){
-                playerThreeHand.push_back(randomCard(deck));
-                cout<<"\t\t\tDealt card: "<<playerThreeHand[playerThreeHand.size()-1]<<endl;
-                playerThreeScore = findHandValue(playerThreeHand);
-                if (playerThreeScore>21){
-                    playerBust=true;
+                if (choice=='h' || choice=='H'){
+                    playerThreeHand.push_back(randomCard(deck));
+                    cout<<"\t\t\tDealt card: "<<playerThreeHand[playerThreeHand.size()-1]<<endl;
+                    playerThreeScore = findHandValue(playerThreeHand);
+                    if (playerThreeScore>21){
+                        playerBust=true;
+                        cout<<"\t\t\t~~ Score: "<<playerThreeScore<<" ~~"<<endl;
+                        break;
+                    }
+                    if (playerBust==false){
+                        cout<<"\t\t\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
+                    }
+                } 
+                else if (choice=='s' || choice=='S'){
+                    playerThreeScore = findHandValue(playerThreeHand);
                     cout<<"\t\t\t~~ Score: "<<playerThreeScore<<" ~~"<<endl;
                     break;
                 }
-                if (playerBust==false){
-                    cout<<"\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
+                else {
+                    cout<<"\t\t\tInvalid input, please try again: ";
                 }
-            } 
-            else if (choice=='s' || choice=='S'){
-                playerThreeScore = findHandValue(playerThreeHand);
-                cout<<"\t\t\t~~ Score: "<<playerThreeScore<<" ~~"<<endl;
-                break;
-            }
-            else {
-                cout<<"\t\tInvalid input, please try again: ";
-            }
-            cin>>choice;
+                cin>>choice;
             }
         }
         if (i==3){
-            if (playerFourScore!=21){
+            if (playerFourScore<21){
                 cout<<"\n\t\t\t\tPlayer 4, enter 'H' to Hit --or-- 'S' to Stand: ";
                 cin>>choice;
             }
@@ -274,7 +274,7 @@ int main(){
                     break;
                 }
                 if (playerBust==false){
-                    cout<<"\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
+                    cout<<"\t\t\t\tWould you like to hit again (enter 'H') or stand (enter 'S')?: ";   
                 }
             } 
             else if (choice=='s' || choice=='S'){
@@ -283,13 +283,13 @@ int main(){
                 break;
             }
             else {
-                cout<<"\t\tInvalid input, please try again: ";
+                cout<<"\t\t\t\tInvalid input, please try again: ";
             }
             cin>>choice;
             }
         }
         if (i==4){
-            if (playerFiveScore!=21){
+            if (playerFiveScore<21){
                 cout<<"\n\t\t\t\t\tPlayer 5, enter 'H' to Hit --or-- 'S' to Stand: ";
                 cin>>choice;
             }
@@ -313,7 +313,7 @@ int main(){
                 break;
             }
             else {
-                cout<<"\t\tInvalid input, please try again: ";
+                cout<<"\t\t\t\t\tInvalid input, please try again: ";
             }
             cin>>choice;
             }
@@ -497,23 +497,23 @@ vector<string> dealerHandMax(vector<string> dealerHand, vector<string> deck){   
 //Determines if player won, lost, or bust
 void winLoseOrBust (int playerScore, int dealerScore){
     if (playerScore > 21){
-        cout<<"Player busts! ~~~ Player loses ~~~\n\n";
+        cout<<"~~~ Player busts! Player loses. ~~~\n\n";
         return;
     }
     else if (dealerScore > 21 && playerScore <=21){
-        cout<<"Dealer busts! ~~~ PLAYER WINS! ~~~\n\n";
+        cout<<"~~~ Dealer busts! PLAYER WINS! ~~~\n\n";
         return;
     }
     else if (dealerScore == playerScore){
-        cout<<"Game is a draw ~~~ Tied with dealer ~~~\n\n";
+        cout<<"~~~ Game is a draw. Tied with dealer. ~~~\n\n";
         return;
     }
     else if (dealerScore > playerScore){
-        cout<<"Dealer with better hand ~~~ Player loses ~~~\n\n";
+        cout<<"~~~ Dealer with better hand. Player loses. ~~~\n\n";
         return;
     }
     else if (dealerScore < playerScore){
-        cout<<"Player with better hand ~~~ PLAYER WINS! ~~~\n\n";
+        cout<<"~~~ Player with better hand. PLAYER WINS! ~~~\n\n";
         return;
     }
 
